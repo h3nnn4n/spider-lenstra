@@ -148,7 +148,7 @@ fn lenstra_(n: i64, limit: i64) -> Option<i64> {
                 return Some(gcd(q.2, n));
             }
 
-            pp = p * pp;
+            pp *= p;
         }
     }
 
@@ -180,6 +180,11 @@ fn factors_of(n: i64, limit: i64) -> Vec<i64> {
 
         if !factors.contains(&q) {
             factors.push(q);
+            factors.push(n / q);
+        }
+
+        if factors.len() >= 4 {
+            break;
         }
     }
 
@@ -215,7 +220,7 @@ mod tests {
             for j in primes.iter() {
                 let n = *i * *j;
 
-                if n % 2 == 0 || n % 3 == 0 {
+                if n % 2 == 0 || n % 3 == 0 || *i >= *j {
                     continue;
                 }
 
